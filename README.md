@@ -119,7 +119,91 @@ model = tf.keras.models.load_model(path)
 after run code, new folder with protobuf model added in our Cloud Storage Bucket like this :
 <img width="1440" alt="Screen Shot 2021-06-09 at 16 07 39" src="https://user-images.githubusercontent.com/43495638/121326517-d7c27c00-c93c-11eb-95b8-e9430b044985.png">
 
+after this we must create model in AI Platform like this
 
+<img width="1440" alt="Screen Shot 2021-06-09 at 20 25 14" src="https://user-images.githubusercontent.com/43495638/121363107-d5721900-c960-11eb-8004-527bafaf48ed.png">
+
+
+after create, open model and create new version to Deploy model in AI PLatform :
+
+<img width="1431" alt="Screen Shot 2021-06-09 at 20 26 28" src="https://user-images.githubusercontent.com/43495638/121363252-f9cdf580-c960-11eb-90cd-623083ffc54a.png">
+
+Description model after Deploy :
+*Model Name :lstms_model
+*Model location : gs://first-cloud-step-308017.appspot.com/keras-job-dir/keras_export/
+* Creation time : Jun 8, 2021, 4:34:41 PM Last use time
+* Python version : 3.7
+* Framework : TensorFlow
+* Framework version : 2.3.1
+* Runtime version : 2.3
+* Machine type : n1-standard-4
+* Auto scaling minimum nodes : 1
+
+We can Use this model API with Google APIs Client Library for Python following this code :
+
+```Python
+import googleapiclient.discovery
+
+def predict_json(project, region, model, instances, version=None):
+    """Send json data to a deployed model for prediction.
+
+    Args:
+        project (str): project where the Cloud ML Engine Model is deployed.
+        region (str): regional endpoint to use; set to None for ml.googleapis.com
+        model (str): model name.
+        instances ([Mapping[str: Any]]): Keys should be the names of Tensors
+            your deployed model expects as inputs. Values should be datatypes
+            convertible to Tensors, or (potentially nested) lists of datatypes
+            convertible to tensors.
+        version: str, version of the model to target.
+    Returns:
+        Mapping[str: any]: dictionary of prediction results defined by the
+            model.
+    """
+    # Create the ML Engine service object.
+    # To authenticate set the environment variable
+    # GOOGLE_APPLICATION_CREDENTIALS=<path_to_service_account_file>
+    prefix = "{}-ml".format(region) if region else "ml"
+    api_endpoint = "https://{}.googleapis.com".format(prefix)
+    client_options = ClientOptions(api_endpoint=api_endpoint)
+    service = googleapiclient.discovery.build(
+        'ml', 'v1', client_options=client_options)
+    name = 'projects/{}/models/{}'.format(project, model)
+
+    if version is not None:
+        name += '/versions/{}'.format(version)
+
+    response = service.projects().predict(
+        name=name,
+        body={'instances': instances}
+    ).execute()
+
+    if 'error' in response:
+        raise RuntimeError(response['error'])
+
+    return response['predictions']
+    
+```
+
+or Use in Gcloud following this :
+
+1. Create environment variables to hold the parameters, including a version value if you decide to specify a particular model version:
+
+``` Python
+MODEL_NAME="lstms_model"
+INPUT_DATA_FILE="[INPUT-JSON]"
+VERSION_NAME="v1"
+REGION="asia-southeast1"
+```
+
+2. Use gcloud ml-engine predict to send instances to a deployed model. Note that --version is optional.
+
+```Python
+gcloud ml-engine predict --model $MODEL_NAME \
+--version $VERSION_NAME \
+--json-instances $INPUT_DATA_FILE \
+--region $REGION
+```
 
 <h3>7. Billing</h3>
 
