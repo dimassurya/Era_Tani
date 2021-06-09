@@ -8,4 +8,6 @@ For our prediction we use public dataset from [BMKG](https://dataonline.bmkg.go.
 - **Tx** : Maximum temperature
 - **RH_avg** : Average humidity
 
-We build the model and train the dataset using RNN Algorithm, implemeting with Tensorflow.
+We build the model and train the dataset using RNN Algorithm, implementing with Tensorflow.
+
+Source : https://github.com/aifajar/eratani_ml_path
