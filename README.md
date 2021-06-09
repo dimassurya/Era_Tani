@@ -12,12 +12,12 @@ Era Tani use infrastructure :
 7. Billing
   
   
-<h3>Cloud Iam & Admin</h3>
+<h3>1. Cloud Iam & Admin</h3>
   <img width="1440" alt="Screen Shot 2021-06-09 at 15 13 56" src="https://user-images.githubusercontent.com/43495638/121318307-52879900-c935-11eb-82d3-b9348e818bdc.png">
 <p>we have 2 user with the Role is Owner from the GCP Administrator and 4 users with Editor Role to use GCP</p>
 
 
-<h3>Cloud SQL</h3>
+<h3>2. Cloud SQL</h3>
 <img width="1440" alt="Screen Shot 2021-06-09 at 15 19 28" src="https://user-images.githubusercontent.com/43495638/121319200-2b7d9700-c936-11eb-9fd4-471aca3f9c77.png">
 
 Our Cloud SQL have 1 instance with the configuration such as :
@@ -48,7 +48,7 @@ connect and use Cloud SQL with Public Ip Address to MYSQLWorkBench
 
 
 
-<h3>Cloud Storage</h3>
+<h3>3. Cloud Storage</h3>
 
 <img width="1440" alt="Screen Shot 2021-06-09 at 15 49 51" src="https://user-images.githubusercontent.com/43495638/121323874-65509c80-c93a-11eb-97db-c205031273ee.png">
 
@@ -63,7 +63,7 @@ Our Cloud storage with configuration such as :
 
 
 
-<h3>Compute Engine for Notebook</h3>
+<h3>4. Compute Engine for Notebook</h3>
 
 <img width="1440" alt="Screen Shot 2021-06-09 at 15 52 52" src="https://user-images.githubusercontent.com/43495638/121324320-d001d800-c93a-11eb-9cf5-a5ed5eae0303.png">
 
@@ -91,14 +91,14 @@ Custom Metadata :
 * version	: 71
 
 
-<h3>AI Platform</h3>
+<h3>5. AI Platform</h3>
 
 <img width="1440" alt="Screen Shot 2021-06-09 at 15 59 28" src="https://user-images.githubusercontent.com/43495638/121325295-adbc8a00-c93b-11eb-9a7c-c7175d7536b9.png">
 
 in AI Platform Notebook we have one instance to open Jupyter Notebook from create protobuf model machine learning to deploy in GCP
 
 
-<h3>Model ML convert to Protobuf with Tensorflow</h3>
+<h3>6. Model ML convert to Protobuf with Tensorflow</h3>
 
 To safe Tensorflow Model with protobuf format we must add this code in ML model code and save it to our Cloud Storage
 ```Python
@@ -121,7 +121,7 @@ after run code, new folder with protobuf model added in our Cloud Storage Bucket
 
 
 
-<h3>Billing</h3>
+<h3>7. Billing</h3>
 
 <img width="1440" alt="Screen Shot 2021-06-09 at 16 10 30" src="https://user-images.githubusercontent.com/43495638/121327522-b8781e80-c93d-11eb-910f-7ac6db0ecf37.png">
 
